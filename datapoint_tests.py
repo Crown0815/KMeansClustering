@@ -4,23 +4,34 @@ from datapoint import DataVector
 
 
 class DataPointTests(unittest.TestCase):
+    @staticmethod
+    def create_test_data_point(values: list):
+        point = DataPoint()
+        for dimension_value in values:
+            point.add_dimension(dimension_value)
+        return point
 
     def test_distance(self):
-        point0 = DataPoint()
-        point0.coordinates.append(0)
-        point0.coordinates.append(0)
-
-        point1 = DataPoint()
-        point1.coordinates.append(3)
-        point1.coordinates.append(4)
+        point0 = self.create_test_data_point([0, 0])
+        point1 = self.create_test_data_point([3, 4])
         self.assertEqual(5, point0.distance(point1))
 
     def test_dimension(self):
-        point = DataPoint()
-        point.coordinates.append(0)
-        point.coordinates.append(0)
+        point = self.create_test_data_point([0, 0])
 
         self.assertEqual(2, point.dimension)
+
+    def test_equality_comparison(self):
+        point0 = self.create_test_data_point([3, 4, 10])
+        point1 = self.create_test_data_point([3, 4, 10])
+
+        self.assertTrue(point0 == point1)
+
+    def test_equality_comparison_unequal(self):
+        point0 = self.create_test_data_point([3, 4, 10])
+        point1 = self.create_test_data_point([3, 5, 10])
+
+        self.assertFalse(point0 == point1)
 
 
 class DataVectorTests(unittest.TestCase):
@@ -99,6 +110,18 @@ class DataVectorTests(unittest.TestCase):
         vector = self.create_test_data_vector([[-1, -1], [1, 1], [-2, -2], [2, 2]])
 
         self.assertEqual([0, 0], vector.center_point.coordinates)
+
+    def test_equality_comparison(self):
+        vector0 = self.create_test_data_vector([[1, 2, 3], [2, 3, 4]])
+        vector1 = self.create_test_data_vector([[1, 2, 3], [2, 3, 4]])
+
+        self.assertTrue(vector0 == vector1)
+
+    def test_equality_comparison_unequal(self):
+        vector0 = self.create_test_data_vector([[1, 2, 3], [2, 3, 4]])
+        vector1 = self.create_test_data_vector([[1, 3, 3], [2, 3, 4]])
+
+        self.assertFalse(vector0 == vector1)
 
 
 if __name__ == '__main__':

@@ -22,6 +22,9 @@ class DataPoint:
     def value(self, dimension: int):
         return self.coordinates[dimension-1]
 
+    def __eq__(self, other: object):
+        return self.coordinates == other.coordinates
+
 
 class DataVector:
     def __init__(self) -> None:
@@ -76,6 +79,9 @@ class DataVector:
             dimension_values.append(point.value(dimension))
 
         return dimension_values
+
+    def __eq__(self, other: object):
+        return self.data_points == other.data_points
 
 
 
