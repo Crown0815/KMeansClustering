@@ -129,6 +129,23 @@ class DataVectorTests(unittest.TestCase):
         self.assertEqual(-1, vector.min(1))
         self.assertEqual(-4, vector.min(2))
 
+    def test_min_by_dimension(self):
+        vector = DataVector()
+
+        point0 = DataPoint()
+        point0.coordinates.append(1)
+        point0.coordinates.append(1)
+
+        point1 = DataPoint()
+        point1.coordinates.append(3)
+        point1.coordinates.append(5)
+
+        vector.add_point(point0)
+        vector.add_point(point1)
+
+        self.assertEqual(2, vector.center(1))
+        self.assertEqual(3, vector.center(2))
+
     def test_extreme_point(self):
         vector = DataVector()
 
@@ -145,6 +162,22 @@ class DataVectorTests(unittest.TestCase):
 
         self.assertEqual([3, 2], vector.max_point.coordinates)
         self.assertEqual([-1, -4], vector.min_point.coordinates)
+
+    def test_center_point(self):
+        vector = DataVector()
+
+        point0 = DataPoint()
+        point0.coordinates.append(-1)
+        point0.coordinates.append(-1)
+
+        point1 = DataPoint()
+        point1.coordinates.append(1)
+        point1.coordinates.append(1)
+
+        vector.add_point(point0)
+        vector.add_point(point1)
+
+        self.assertEqual([0, 0], vector.center_point.coordinates)
 
 
 if __name__ == '__main__':

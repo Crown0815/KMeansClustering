@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 
 class DataPoint:
@@ -43,6 +44,9 @@ class DataVector:
     def min(self, dimension: int = 1):
         return min(self.get_values(dimension))
 
+    def center(self, dimension: int = 1):
+        return np.mean(self.get_values(dimension))
+
     @property
     def min_point(self) -> object:
         point = DataPoint()
@@ -55,6 +59,13 @@ class DataVector:
         point = DataPoint()
         for dimension in range(len(self.data_points)):
             point.add_dimension(self.max(dimension+1))
+        return point
+
+    @property
+    def center_point(self) -> object:
+        point = DataPoint()
+        for dimension in range(len(self.data_points)):
+            point.add_dimension(self.center(dimension+1))
         return point
 
     def get_values(self, dimension: int = 1):
