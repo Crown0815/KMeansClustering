@@ -10,9 +10,9 @@ class KMeans:
         self.cluster_count = cluster_count
         self.minimum = data_vector.min_point
         self.maximum = data_vector.max_point
-        self.clusters = self.initialize_cluster_centers()
+        self.clusters = self.initialize_clusters()
 
-    def initialize_cluster(self):
+    def initialize_clusters(self):
         clusters = datapoint.DataVector()
         for cluster_number in range(self.cluster_count):
             point = datapoint.DataPoint()
@@ -25,14 +25,14 @@ class KMeans:
     @staticmethod
     def closest_cluster_index(clusters: object, point: object) -> int:
         distances = list()
-        for cluster in clusters:
+        for cluster in clusters.data_points:
             distances.append(point.distance(cluster))
         return distances.index(min(distances))
 
     def cluster_points(self, clusters: object) -> object:
         clustered_points = list()
-        for iii in range(len(clusters)):
-            clustered_points.append(datapoint.DataVector)
+        for iii in range(len(clusters.data_points)):
+            clustered_points.append(datapoint.DataVector())
 
         for point in self.data_vector.data_points:
             clustered_points[self.closest_cluster_index(clusters, point)].add_point(point)
@@ -49,7 +49,7 @@ class KMeans:
         return self.improve_clusters(new_clusters)
 
     def run(self):
-        self.clusters = self.improve_clusters(self.initialize_cluster_centers())
+        self.clusters = self.improve_clusters(self.initialize_clusters())
 
 
 
