@@ -1,3 +1,6 @@
+import math
+
+
 class DataPoint:
     def __init__(self) -> None:
         self.coordinates = list()
@@ -12,12 +15,14 @@ class DataVector:
         self.data_points = list()
 
     def add_point(self, point: DataPoint) -> None:
-        if self.dimension() != point.dimension:
+        if (len(self.data_points) > 0) & (self.dimension() != point.dimension):
             raise ValueError(f"Dimensions do not agree (Vector: {self.dimension}, Point: {point.dimension})")
         self.data_points.append(point)
 
     def dimension(self) -> int:
-        return len(self.data_points[0])
+        if len(self.data_points) < 1:
+            return math.inf
+        return len(self.data_points[0].coordinates)
 
     def get_values(self, dimension: int = 1):
         if dimension > self.dimension():
@@ -25,7 +30,7 @@ class DataVector:
 
         dimension_values = list()
         for point in self.data_points:
-            dimension_values.append(point.coordinates[dimension])
+            dimension_values.append(point.coordinates[dimension-1])
 
         return dimension_values
 
