@@ -11,13 +11,13 @@ class FileReader:
     def read_file_to_data_points(self) -> list():
         with open(self.file_path, mode='r') as open_file:
             csv_reader = csv.reader(open_file, delimiter=self.delimiter)
-            points = list()
+            data_vector = datapoint.DataVector()
             line_count = 0
             for row in csv_reader:
                 point = datapoint.DataPoint()
                 for item in row:
                     point.coordinates.append(float(item))
-                points.append(point)
+                data_vector.add_point(point)
                 line_count += 1
             print(f'Processed {line_count} lines.')
-        return points
+        return data_vector
