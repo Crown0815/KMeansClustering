@@ -90,13 +90,13 @@ class DataVectorTests(unittest.TestCase):
         self.assertEqual(3, vector.center(2))
 
     def test_extreme_point(self):
-        vector = self.create_test_data_vector([[-1, 2], [3, -4]])
+        vector = self.create_test_data_vector([[-1, 2], [3, -4], [3, -4]])
 
         self.assertEqual([3, 2], vector.max_point.coordinates)
         self.assertEqual([-1, -4], vector.min_point.coordinates)
 
     def test_center_point(self):
-        vector = self.create_test_data_vector([[-1, -1], [1, 1]])
+        vector = self.create_test_data_vector([[-1, -1], [1, 1], [-2, -2], [2, 2]])
 
         self.assertEqual([0, 0], vector.center_point.coordinates)
 

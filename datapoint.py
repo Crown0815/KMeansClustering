@@ -49,23 +49,20 @@ class DataVector:
 
     @property
     def min_point(self) -> object:
-        point = DataPoint()
-        for dimension in range(len(self.data_points)):
-            point.add_dimension(self.min(dimension+1))
-        return point
+        return self.point_by_func(self.min)
 
     @property
     def max_point(self) -> object:
-        point = DataPoint()
-        for dimension in range(len(self.data_points)):
-            point.add_dimension(self.max(dimension+1))
-        return point
+        return self.point_by_func(self.max)
 
     @property
     def center_point(self) -> object:
+        return self.point_by_func(self.center)
+
+    def point_by_func(self, func):
         point = DataPoint()
-        for dimension in range(len(self.data_points)):
-            point.add_dimension(self.center(dimension+1))
+        for dimension in range(self.dimension):
+            point.add_dimension(func(dimension + 1))
         return point
 
     def get_values(self, dimension: int = 1):
