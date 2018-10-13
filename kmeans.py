@@ -19,12 +19,15 @@ class KMeans:
     def initialize_clusters(self, count: int):
         clusters = DataVector()
         for cluster_number in range(count):
-            point = DataPoint()
-            for dimension in range(self.data_vector.dimension):
-                random_value = random.uniform(self.minimum.value(dimension+1), self.maximum.value(dimension+1))
-                point.add_dimension(random_value)
-            clusters.add_point(point)
+            clusters.add_point(self.initialize_cluster())
         return clusters
+
+    def initialize_cluster(self):
+        point = DataPoint()
+        for dimension in range(self.data_vector.dimension):
+            random_value = random.uniform(self.minimum.value(dimension + 1), self.maximum.value(dimension + 1))
+            point.add_dimension(random_value)
+        return point
 
     @staticmethod
     def closest_cluster_index(clusters: DataVector, point: DataPoint) -> int:
@@ -47,7 +50,10 @@ class KMeans:
         point_clusters = self.cluster_points(clusters)
         new_clusters = DataVector()
         for point_cluster in point_clusters:
-            new_clusters.add_point(point_cluster.center_point)
+            if len(point_cluster.data_points) > 0:
+                new_clusters.add_point(point_cluster.center_point)
+            else:
+                new_clusters.add_point(self.initialize_cluster())
         if new_clusters == clusters:
             return clusters
         return self.improve_clusters(new_clusters)
