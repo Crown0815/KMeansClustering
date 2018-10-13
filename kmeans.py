@@ -46,6 +46,13 @@ class KMeans:
 
         return clustered_points
 
+    def cluster_numbered_index(self, clusters: DataVector) -> dict:
+        clustered_index = dict()
+        for index in range(len(self.data_vector.data_points)):
+            clustered_index[index] = self.closest_cluster_index(clusters, self.data_vector.data_points[index])
+
+        return clustered_index
+
     def improve_clusters(self, clusters: DataVector) -> DataVector:
         point_clusters = self.cluster_points(clusters)
         new_clusters = DataVector()
