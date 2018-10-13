@@ -95,6 +95,57 @@ class DataVectorTests(unittest.TestCase):
         self.assertEqual([1, 3], vector.get_values(1))
         self.assertEqual([2, 4], vector.get_values(2))
 
+    def test_max_by_dimension(self):
+        vector = DataVector()
+
+        point0 = DataPoint()
+        point0.coordinates.append(-1)
+        point0.coordinates.append(2)
+
+        point1 = DataPoint()
+        point1.coordinates.append(3)
+        point1.coordinates.append(-4)
+
+        vector.add_point(point0)
+        vector.add_point(point1)
+
+        self.assertEqual(3, vector.max(1))
+        self.assertEqual(2, vector.max(2))
+
+    def test_min_by_dimension(self):
+        vector = DataVector()
+
+        point0 = DataPoint()
+        point0.coordinates.append(-1)
+        point0.coordinates.append(2)
+
+        point1 = DataPoint()
+        point1.coordinates.append(3)
+        point1.coordinates.append(-4)
+
+        vector.add_point(point0)
+        vector.add_point(point1)
+
+        self.assertEqual(-1, vector.min(1))
+        self.assertEqual(-4, vector.min(2))
+
+    def test_extreme_point(self):
+        vector = DataVector()
+
+        point0 = DataPoint()
+        point0.coordinates.append(-1)
+        point0.coordinates.append(2)
+
+        point1 = DataPoint()
+        point1.coordinates.append(3)
+        point1.coordinates.append(-4)
+
+        vector.add_point(point0)
+        vector.add_point(point1)
+
+        self.assertEqual([3, 2], vector.max_point.coordinates)
+        self.assertEqual([-1, -4], vector.min_point.coordinates)
+
 
 if __name__ == '__main__':
     unittest.main()

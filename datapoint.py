@@ -37,13 +37,33 @@ class DataVector:
             return math.inf
         return len(self.data_points[0].coordinates)
 
+    def max(self, dimension: int = 1):
+        return max(self.get_values(dimension))
+
+    def min(self, dimension: int = 1):
+        return min(self.get_values(dimension))
+
+    @property
+    def min_point(self) -> object:
+        point = DataPoint()
+        for dimension in range(len(self.data_points)):
+            point.add_dimension(self.min(dimension+1))
+        return point
+
+    @property
+    def max_point(self) -> object:
+        point = DataPoint()
+        for dimension in range(len(self.data_points)):
+            point.add_dimension(self.max(dimension+1))
+        return point
+
     def get_values(self, dimension: int = 1):
         if dimension > self.dimension:
             raise ValueError(f"Requested dimension ({dimension}) exceeds available dimensions ({self.dimension})")
 
         dimension_values = list()
         for point in self.data_points:
-            dimension_values.append(point.coordinates[dimension-1])
+            dimension_values.append(point.value[dimension])
 
         return dimension_values
 
