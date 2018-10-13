@@ -50,11 +50,3 @@ class KMeans:
 
     def run(self):
         self.clusters = self.improve_clusters(self.initialize_clusters())
-
-
-
-
-
-
-
-print(random.uniform(-100, 100))
