@@ -63,7 +63,7 @@ class DataVector:
 
         dimension_values = list()
         for point in self.data_points:
-            dimension_values.append(point.value[dimension])
+            dimension_values.append(point.value(dimension))
 
         return dimension_values
 
