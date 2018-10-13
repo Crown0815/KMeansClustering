@@ -15,6 +15,12 @@ class DataPoint:
             distance += (self.coordinates[dimension] - point.coordinates[dimension])**2
         return math.sqrt(distance)
 
+    def add_dimension(self, value: float):
+        self.coordinates.append(value)
+
+    def value(self, dimension: int):
+        return self.coordinates[dimension-1]
+
 
 class DataVector:
     def __init__(self) -> None:
