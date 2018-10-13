@@ -1,5 +1,4 @@
 import csv
-import datapoint
 
 
 class FileReader:
