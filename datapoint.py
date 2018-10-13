@@ -60,6 +60,8 @@ class DataVector:
         return self.point_by_func(self.center)
 
     def point_by_func(self, func):
+        if not isinstance(self.dimension, int):
+            raise EnvironmentError("DataVector has no points yet")
         point = DataPoint()
         for dimension in range(self.dimension):
             point.add_dimension(func(dimension + 1))
