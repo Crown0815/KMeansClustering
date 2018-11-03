@@ -15,10 +15,10 @@ class ClusterEvaluator:
 class NormalizedMutualInformation:
     @staticmethod
     def evaluate():
-        return 0;
+        return 0
 
 
 class JaccardSimilarity:
     @staticmethod
     def evaluate():
-        return 0;
+        return 0
