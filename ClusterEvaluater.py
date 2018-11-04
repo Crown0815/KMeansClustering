@@ -1,5 +1,5 @@
 from filereader import FileReader
-from ClusterPoint import ClusterPoint, ClusterPoints
+from ClusterPoint import ClusterPoints
 from math import log, sqrt
 
 
@@ -15,9 +15,44 @@ class ClusterEvaluator:
 
 
 class NormalizedMutualInformation:
+    def evaluate(self, clusters: ClusterPoints, partitions: ClusterPoints):
+        mutual_information = self.mutual_information(clusters, partitions)
+        entropy_clusters = self.entropy_of_clustering(clusters)
+        entropy_partitions = self.entropy_of_clustering(partitions)
+        if mutual_information == 0:
+            return mutual_information
+        return mutual_information / sqrt(entropy_clusters * entropy_partitions)
+
+    def entropy_of_clustering(self, clusters: ClusterPoints):
+        entropy = 0
+        for cluster_id in clusters.cluster_ids():
+            cluster_probability = self.cluster_probability(clusters, cluster_id)
+            entropy += cluster_probability * log(cluster_probability)
+        return -entropy
+
+    def mutual_information(self, clusters: ClusterPoints, partitions: ClusterPoints):
+        mutual_information = 0
+        for partition_id in partitions.cluster_ids():
+            for cluster_id in clusters.cluster_ids():
+                mutual_information += self.information_term(partitions, clusters, partition_id, cluster_id)
+        return mutual_information
+
+    def information_term(self, clusters: ClusterPoints, partitions: ClusterPoints, cluster_id: int, partition_id: int):
+        joint_probability = self.joint_probability(partitions, clusters, partition_id, cluster_id)
+        partition_probability = self.cluster_probability(partitions, partition_id)
+        cluster_probability = self.cluster_probability(clusters, cluster_id)
+        if joint_probability == 0:
+            return joint_probability
+        return joint_probability * log(joint_probability / (partition_probability * cluster_probability))
+
     @staticmethod
-    def evaluate():
-        return 0
+    def cluster_probability(cluster_points: ClusterPoints, cluster_id: int):
+        return cluster_points.points_count(cluster_id) / len(cluster_points)
+
+    @staticmethod
+    def joint_probability(partitions: ClusterPoints, clusters: ClusterPoints, partition_id: int, cluster_id: int):
+        shared_points = partitions.points(partition_id).intersection(clusters.points(cluster_id))
+        return len(shared_points) / len(partitions)
 
 
 class JaccardSimilarity:
