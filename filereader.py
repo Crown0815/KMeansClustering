@@ -31,5 +31,4 @@ class FileReader:
             for row in csv_reader:
                 cluster_points.append(ClusterPoint(int(row[0]), int(row[1])))
                 line_count += 1
-            print(f'Processed {line_count} lines.')
         return cluster_points
