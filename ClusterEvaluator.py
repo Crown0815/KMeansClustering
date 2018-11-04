@@ -60,16 +60,16 @@ class JaccardSimilarity:
         tp = self.true_positive(partitions, clusters)
         fn = self.false_negative(partitions, clusters)
         fp = self.false_positive(partitions, clusters)
-        return tp/(tp + fn + fp)
+        return tp / (tp + fn + fp)
 
     @staticmethod
     def true_positive(partitions: ClusterPoints, clusters: ClusterPoints):
         combinations = 0
         for partition_id in partitions.cluster_ids():
             for cluster_id in clusters.cluster_ids():
-                combinations += len(partitions.points(partition_id).intersection(clusters.points(cluster_id)))**2
+                combinations += len(partitions.points(partition_id).intersection(clusters.points(cluster_id))) ** 2
         combinations -= len(partitions)
-        return combinations/2
+        return combinations / 2
 
     def false_negative(self, partitions: ClusterPoints, clusters: ClusterPoints):
         return self.sum_of_pairs(partitions) - self.true_positive(partitions, clusters)
@@ -84,3 +84,8 @@ class JaccardSimilarity:
             cluster_count = cluster_points.points_count(cluster_id)
             combinations += cluster_count * (cluster_count - 1)
         return combinations / 2
+
+
+evaluator = ClusterEvaluator(NormalizedMutualInformation(), FileReader("", " "))
+print(evaluator.evaluate("data/partitions.txt", "data/clustering_1.txt"))
+

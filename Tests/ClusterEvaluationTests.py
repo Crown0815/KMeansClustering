@@ -1,5 +1,5 @@
 import unittest
-from ClusterEvaluater import ClusterEvaluator, JaccardSimilarity, NormalizedMutualInformation
+from ClusterEvaluator import ClusterEvaluator, JaccardSimilarity, NormalizedMutualInformation
 from ClusterPoint import ClusterPoint, ClusterPoints
 
 
