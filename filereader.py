@@ -1,10 +1,10 @@
 import csv
 import datapoint
-from ClusterPoint import ClusterPoint
+from ClusterPoint import ClusterPoint, ClusterPoints
 
 
 class FileReader:
-    def __init__(self, file_path: str, delimiter: object = ",") -> None:
+    def __init__(self, file_path: str = "", delimiter: object = ",") -> None:
 
         self.file_path = file_path
         self.delimiter = delimiter
@@ -26,14 +26,10 @@ class FileReader:
     def read_file_to_cluster_points(self, path: str) -> list():
         with open(path, mode='r') as open_file:
             csv_reader = csv.reader(open_file, delimiter=self.delimiter)
-            cluster_points = list()
+            cluster_points = ClusterPoints()
             line_count = 0
             for row in csv_reader:
-                cluster_point = ClusterPoint()
-                for item in row:
-                    cluster_point.point_id = int(item[0])
-                    cluster_point.cluster_id = int(item[1])
-                cluster_points.append(cluster_point)
+                cluster_points.append(ClusterPoint(int(row[0]), int(row[1])))
                 line_count += 1
             print(f'Processed {line_count} lines.')
         return cluster_points
