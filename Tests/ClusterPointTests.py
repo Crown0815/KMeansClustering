@@ -9,8 +9,8 @@ class ClusterPointTests(unittest.TestCase):
         return ClusterPoint(point_id, cluster_id)
 
     def test_equality(self):
-        point1 = self.create_test_cluster_point(1, 1)
-        point2 = self.create_test_cluster_point(1, 1)
+        point1 = self.create_test_cluster_point(1, 2)
+        point2 = self.create_test_cluster_point(1, 2)
         self.assertEqual(point1, point2)
 
     def test_inequality(self):

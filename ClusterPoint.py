@@ -5,5 +5,7 @@ class ClusterPoint:
         self.cluster_id = cluster_id
 
     def __eq__(self, other):
-        return self.cluster_id == other.cluster_id & \
-               self.point_id == other.point_id
+        return (self.cluster_id == other.cluster_id) & (self.point_id == other.point_id)
+
+
+
