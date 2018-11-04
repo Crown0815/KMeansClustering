@@ -8,4 +8,26 @@ class ClusterPoint:
         return (self.cluster_id == other.cluster_id) & (self.point_id == other.point_id)
 
 
+class ClusterPoints(list):
+    def __init__(self, items):
+        list.__init__(self, items)
+
+    def cluster_ids(self):
+        indices = set()
+        for point in self:
+            indices.add(point.cluster_id)
+        return sorted(list(indices))
+
+    def points_count(self, cluster_id: int):
+        return len(self.points(cluster_id))
+
+    def points_counts(self):
+        counts = dict()
+        for cluster_id in self.cluster_ids():
+            counts[cluster_id] = self.points_count(cluster_id)
+        return counts
+
+    def points(self, cluster_id: int):
+        return ClusterPoints([point for point in self if point.cluster_id == cluster_id])
+
 
