@@ -1,4 +1,5 @@
 from filereader import FileReader
+from filewriter import FileWriter
 from ClusterPoint import ClusterPoints
 from math import log, sqrt
 
@@ -86,6 +87,18 @@ class JaccardSimilarity:
         return combinations / 2
 
 
-evaluator = ClusterEvaluator(NormalizedMutualInformation(), FileReader("", " "))
-print(evaluator.evaluate("data/partitions.txt", "data/clustering_1.txt"))
+nmi = ClusterEvaluator(NormalizedMutualInformation(), FileReader("", " "))
+jcs = ClusterEvaluator(JaccardSimilarity(), FileReader("", " "))
+results = list()
+for iii in range(1, 6):
+    nmi_result = nmi.evaluate("data/partitions.txt", "data/clustering_"+str(iii)+".txt")
+    jcs_result = jcs.evaluate("data/partitions.txt", "data/clustering_"+str(iii)+".txt")
+    print("////// "+str(iii)+" ///////")
+    print(nmi_result)
+    print(jcs_result)
+    print()
+    results.append([nmi_result, jcs_result])
+
+writer = FileWriter("data/scores.txt", " ")
+writer.write_list_of_rows_to_file(results)
 
