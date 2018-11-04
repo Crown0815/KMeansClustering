@@ -9,7 +9,7 @@ class ClusterPoint:
 
 
 class ClusterPoints(list):
-    def __init__(self, items):
+    def __init__(self, items: list = []):
         list.__init__(self, items)
 
     def cluster_ids(self):
