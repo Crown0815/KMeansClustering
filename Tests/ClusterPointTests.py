@@ -54,3 +54,17 @@ class ClusterPointsTests(unittest.TestCase):
         points1 = self.create_test_cluster_points()
         points2 = self.create_test_cluster_points()
         self.assertEqual(points1, points2)
+
+    def test_intersection(self):
+        point1 = ClusterPoint(1, 2)
+        point2 = ClusterPoint(2, 1)
+        point3 = ClusterPoint(3, 3)
+        points1 = ClusterPoints([point1, point2, point3])
+
+        point1 = ClusterPoint(2, 1)
+        point2 = ClusterPoint(5, 1)
+        point3 = ClusterPoint(6, 1)
+        point4 = ClusterPoint(3, 3)
+        points2 = ClusterPoints([point1, point2, point3, point4])
+
+        self.assertEqual(points1.intersection(points2), ClusterPoints([ClusterPoint(2, 1), ClusterPoint(3, 3)]))

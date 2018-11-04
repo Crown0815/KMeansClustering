@@ -30,4 +30,11 @@ class ClusterPoints(list):
     def points(self, cluster_id: int):
         return ClusterPoints([point for point in self if point.cluster_id == cluster_id])
 
+    def intersection(self, other):
+        my_point_ids = [point.point_id for point in self]
+        other_point_ids = [point.point_id for point in other]
+        point_ids = set(my_point_ids).intersection(other_point_ids)
+        return [point for point in self if any(point.point_id == point_id for point_id in point_ids)]
+
+
 
